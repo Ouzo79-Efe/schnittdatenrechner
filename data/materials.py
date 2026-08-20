@@ -1,0 +1,89 @@
+# Werkstoffdatenbank — kc1.1 / mc nach DIN 6584, Richtwerte Tabellenbuch Metall
+# vc/fz-Werte für VHM-Schaftfräser Ø 6–20 mm mit TiAlN-Beschichtung
+
+MATERIALS: dict[str, dict] = {
+    "S235 — Baustahl (ISO P)": {
+        "iso_group": "P",
+        "kc11": 1780,
+        "mc": 0.26,
+        "vc_min": 120, "vc_max": 200, "vc_default": 150,
+        "fz_min": 0.05, "fz_max": 0.20, "fz_default": 0.10,
+    },
+    "C45 — Vergütungsstahl (ISO P)": {
+        "iso_group": "P",
+        "kc11": 2220,
+        "mc": 0.26,
+        "vc_min": 100, "vc_max": 180, "vc_default": 130,
+        "fz_min": 0.05, "fz_max": 0.15, "fz_default": 0.08,
+    },
+    "42CrMo4 — vergütet (ISO P)": {
+        "iso_group": "P",
+        "kc11": 2500,
+        "mc": 0.26,
+        "vc_min": 80, "vc_max": 150, "vc_default": 100,
+        "fz_min": 0.04, "fz_max": 0.12, "fz_default": 0.07,
+    },
+    "16MnCr5 — Einsatzstahl (ISO P)": {
+        "iso_group": "P",
+        "kc11": 2100,
+        "mc": 0.26,
+        "vc_min": 90, "vc_max": 160, "vc_default": 120,
+        "fz_min": 0.04, "fz_max": 0.14, "fz_default": 0.08,
+    },
+    "1.4301 — V2A Edelstahl (ISO M)": {
+        "iso_group": "M",
+        "kc11": 2450,
+        "mc": 0.21,
+        "vc_min": 60, "vc_max": 120, "vc_default": 80,
+        "fz_min": 0.03, "fz_max": 0.10, "fz_default": 0.06,
+    },
+    "1.4404 — V4A Edelstahl (ISO M)": {
+        "iso_group": "M",
+        "kc11": 2500,
+        "mc": 0.21,
+        "vc_min": 50, "vc_max": 100, "vc_default": 70,
+        "fz_min": 0.03, "fz_max": 0.09, "fz_default": 0.05,
+    },
+    "GJL-250 — Grauguss (ISO K)": {
+        "iso_group": "K",
+        "kc11": 1100,
+        "mc": 0.28,
+        "vc_min": 100, "vc_max": 200, "vc_default": 150,
+        "fz_min": 0.08, "fz_max": 0.20, "fz_default": 0.12,
+    },
+    "AlMg3 — Aluminium (ISO N)": {
+        "iso_group": "N",
+        "kc11": 700,
+        "mc": 0.23,
+        "vc_min": 300, "vc_max": 600, "vc_default": 400,
+        "fz_min": 0.05, "fz_max": 0.25, "fz_default": 0.12,
+    },
+    "Al 6061-T6 (ISO N)": {
+        "iso_group": "N",
+        "kc11": 700,
+        "mc": 0.23,
+        "vc_min": 350, "vc_max": 650, "vc_default": 450,
+        "fz_min": 0.06, "fz_max": 0.20, "fz_default": 0.12,
+    },
+    "Al 7075-T6 (ISO N)": {
+        "iso_group": "N",
+        "kc11": 720,
+        "mc": 0.23,
+        "vc_min": 250, "vc_max": 500, "vc_default": 350,
+        "fz_min": 0.05, "fz_max": 0.18, "fz_default": 0.10,
+    },
+    "Ti6Al4V — Titan (ISO S)": {
+        "iso_group": "S",
+        "kc11": 1680,
+        "mc": 0.23,
+        "vc_min": 30, "vc_max": 60, "vc_default": 45,
+        "fz_min": 0.03, "fz_max": 0.10, "fz_default": 0.05,
+    },
+    "Inconel 718 (ISO S)": {
+        "iso_group": "S",
+        "kc11": 2400,
+        "mc": 0.22,
+        "vc_min": 20, "vc_max": 45, "vc_default": 30,
+        "fz_min": 0.02, "fz_max": 0.08, "fz_default": 0.04,
+    },
+}
