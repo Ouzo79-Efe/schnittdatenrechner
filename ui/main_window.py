@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
         self.setWindowTitle("Schnittdatenrechner — Fräsen")
-        self.setMinimumWidth(800)
+        self.setMinimumSize(1440, 936)
         self._report_data: dict = {}
         self._setup_ui()
 
@@ -41,18 +41,23 @@ class MainWindow(QMainWindow):
         central = QWidget()
         self.setCentralWidget(central)
         root = QVBoxLayout(central)
-        root.setSpacing(10)
-        root.setContentsMargins(14, 14, 14, 14)
+        root.setSpacing(18)
+        root.setContentsMargins(25, 25, 25, 25)
 
         # Projektname
         proj_row = QHBoxLayout()
         lbl = QLabel("<b>Projektname:</b>")
-        lbl.setFixedWidth(100)
+        lbl.setFixedWidth(180)
         proj_row.addWidget(lbl)
         self.le_project = QLineEdit()
         self.le_project.setPlaceholderText("z. B. Gehäuse AlMg3 — Charge 01")
-        self.le_project.setFixedHeight(30)
+        self.le_project.setFixedHeight(54)
         proj_row.addWidget(self.le_project)
+        self.btn_reset = QPushButton("↺  Zurücksetzen")
+        self.btn_reset.setFixedHeight(54)
+        self.btn_reset.setToolTip("Alle Eingaben auf die Standardwerte zurücksetzen")
+        self.btn_reset.clicked.connect(self._reset_inputs)
+        proj_row.addWidget(self.btn_reset)
         root.addLayout(proj_row)
 
         # Eingaben / Ergebnisse nebeneinander
@@ -64,12 +69,12 @@ class MainWindow(QMainWindow):
         # Buttons
         btn_row = QHBoxLayout()
         btn_calc = QPushButton("⚙  Berechnen")
-        btn_calc.setFixedHeight(38)
-        btn_calc.setFont(QFont("Arial", 10, QFont.Weight.Bold))
+        btn_calc.setFixedHeight(68)
+        btn_calc.setFont(QFont("Arial", 18, QFont.Weight.Bold))
         btn_calc.clicked.connect(self._calculate)
 
         self.btn_print = QPushButton("🖨  Report drucken …")
-        self.btn_print.setFixedHeight(38)
+        self.btn_print.setFixedHeight(68)
         self.btn_print.setEnabled(False)
         self.btn_print.clicked.connect(self._print_report)
 
@@ -81,7 +86,7 @@ class MainWindow(QMainWindow):
         group = QGroupBox("Eingaben")
         form = QFormLayout(group)
         form.setFieldGrowthPolicy(QFormLayout.FieldGrowthPolicy.AllNonFixedFieldsGrow)
-        form.setSpacing(6)
+        form.setSpacing(11)
 
         # Werkstoff
         self.cb_material = QComboBox()
@@ -128,7 +133,7 @@ class MainWindow(QMainWindow):
         # Richtwert-Hinweis
         self.lbl_hint = QLabel()
         self.lbl_hint.setWordWrap(True)
-        self.lbl_hint.setStyleSheet("color: #555; font-size: 9px;")
+        self.lbl_hint.setStyleSheet("color: #555; font-size: 16px;")
         form.addRow("Richtwert:", self.lbl_hint)
 
         self._on_material_changed(0)
@@ -137,9 +142,9 @@ class MainWindow(QMainWindow):
     def _build_results_group(self) -> QGroupBox:
         group = QGroupBox("Ergebnisse")
         form = QFormLayout(group)
-        form.setSpacing(6)
+        form.setSpacing(11)
 
-        bold_font = QFont("Arial", 11, QFont.Weight.Bold)
+        bold_font = QFont("Arial", 19, QFont.Weight.Bold)
 
         def _rlabel() -> QLabel:
             lbl = QLabel("—")
@@ -160,7 +165,7 @@ class MainWindow(QMainWindow):
 
         self.lbl_warn = QLabel()
         self.lbl_warn.setWordWrap(True)
-        self.lbl_warn.setStyleSheet("color: #c00; font-size: 9px;")
+        self.lbl_warn.setStyleSheet("color: #c00; font-size: 16px;")
         form.addRow(self.lbl_warn)
 
         return group
@@ -168,6 +173,27 @@ class MainWindow(QMainWindow):
     # ------------------------------------------------------------------
     # Slots
     # ------------------------------------------------------------------
+
+    def _reset_inputs(self) -> None:
+        self.le_project.clear()
+        self.cb_material.setCurrentIndex(0)
+        self.sb_D.setValue(10.0)
+        self.sb_z.setValue(4)
+        self.sb_re.setValue(0.8)
+        self.sb_ap.setValue(3.0)
+        self.sb_ae.setValue(5.0)
+        self.sb_eta.setValue(0.80)
+        self.sb_n_max.setValue(12000.0)
+        self.sb_P_max.setValue(7.5)
+
+        for label in (
+            self.lbl_n, self.lbl_vf, self.lbl_Q, self.lbl_Fc,
+            self.lbl_Pc, self.lbl_Pa, self.lbl_M, self.lbl_hex, self.lbl_Rz,
+        ):
+            label.setText("—")
+        self.lbl_warn.clear()
+        self._report_data = {}
+        self.btn_print.setEnabled(False)
 
     def _on_material_changed(self, _index: int) -> None:
         mat = MATERIALS[self.cb_material.currentText()]
